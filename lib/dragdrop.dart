@@ -13,6 +13,8 @@ class DragAndDrop extends StatefulWidget {
 class _DragAndDropState extends State<DragAndDrop> {
   Uint8List? _imageData;
   final _dropKey = GlobalKey();
+
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +33,7 @@ class _DragAndDropState extends State<DragAndDrop> {
     html.window.addEventListener('drop', (event) {
       event.preventDefault();
       event.stopPropagation(); // stops the dragging to open the file
-      // event.dataTransfer.files is no longer supported in dart:html
+  
       final files = (event as html.MouseEvent)
           .dataTransfer
           .files; // get the files from mouse event
