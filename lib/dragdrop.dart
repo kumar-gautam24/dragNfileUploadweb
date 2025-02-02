@@ -22,6 +22,7 @@ class _DragAndDropState extends State<DragAndDrop> {
   void dropListener() {
     final dropZone =
         _dropKey.currentContext?.findRenderObject() as html.Element?;
+    // this is not needed anymore due to drop event listener
 
     //  drag starts or while dragging over the drop zone
     html.window.addEventListener('dragover', (event) {
@@ -29,8 +30,11 @@ class _DragAndDropState extends State<DragAndDrop> {
     });
     html.window.addEventListener('drop', (event) {
       event.preventDefault();
-      event.stopPropagation();
-      final files = (event as html.MouseEvent).dataTransfer.files;
+      event.stopPropagation(); // stops the dragging to open the file
+      // event.dataTransfer.files is no longer supported in dart:html
+      final files = (event as html.MouseEvent)
+          .dataTransfer
+          .files; // get the files from mouse event
       if (files!.isNotEmpty && files[0].type.startsWith('image/')) {
         final reader = html.FileReader();
         reader.readAsArrayBuffer(files[0]);
@@ -48,8 +52,8 @@ class _DragAndDropState extends State<DragAndDrop> {
     return Center(
       child: Container(
         key: _dropKey,
-        width: 200,
-        height: 100,
+        width: 500,
+        height: 300,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.blue, width: 3),
           color: Colors.grey.withValues(alpha: 0.2),
