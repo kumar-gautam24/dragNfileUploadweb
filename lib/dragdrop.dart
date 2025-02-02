@@ -27,7 +27,7 @@ class _DragAndDropState extends State<DragAndDrop> {
     //  drag starts or while dragging over the drop zone
     html.window.addEventListener('dragover', (event) {
       event.preventDefault(); // prevent from happening anything
-    });
+    }); // even this can be removed browser will not do anything
     html.window.addEventListener('drop', (event) {
       event.preventDefault();
       event.stopPropagation(); // stops the dragging to open the file
@@ -40,7 +40,7 @@ class _DragAndDropState extends State<DragAndDrop> {
         reader.readAsArrayBuffer(files[0]);
         reader.onLoadEnd.listen((event) {
           setState(() {
-            _imageData = reader.result as Uint8List?;
+            _imageData = reader.result as Uint8List?;  
           });
         });
       }
